@@ -1,0 +1,2 @@
+from pose.image_pose_indentify import image_pose_indentify
+from pose.image_pose_data import get_picture_angle
