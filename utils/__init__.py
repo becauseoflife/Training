@@ -21,3 +21,6 @@ from utils.get_url_file import getUrlFile
 
 # 重新对一个 pil_image 对象进行缩放，让它在一个矩形框内，还能保持比例
 from utils.resize_image import resize
+
+# 日志处理
+from utils.log_utiil import get_log_data

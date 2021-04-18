@@ -77,47 +77,47 @@ def draw_landmarks(image, landmarks, visibility_th=0.5):
         if index == 11:  # 右肩
             cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
         if index == 12:  # 左肩
-            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
+            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 255), 2)
         if index == 13:  # 右肘
             cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
         if index == 14:  # 左肘
-            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
+            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 255), 2)
         if index == 15:  # 右手腕
             cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
         if index == 16:  # 左手腕
-            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
+            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 255), 2)
         if index == 17:  # 右手1（外缘）
             cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
         if index == 18:  # 左手1（外缘）
-            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
+            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 255), 2)
         if index == 19:  # 右手2(先端)
             cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
         if index == 20:  # 左手2(先端)
-            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
+            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 255), 2)
         if index == 21:  # 右手3（内边缘）
             cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
         if index == 22:  # 左手3（内边缘）
-            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
+            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 255), 2)
         if index == 23:  # 腰(右側)
             cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
         if index == 24:  # 腰(左側)
-            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
+            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 255), 2)
         if index == 25:  # 右膝
             cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
         if index == 26:  # 左膝
-            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
+            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 255), 2)
         if index == 27:  # 右脚踝
             cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
         if index == 28:  # 左脚踝
-            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
+            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 255), 2)
         if index == 29:  # 右脚跟
             cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
         if index == 30:  # 左脚跟
-            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
+            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 255), 2)
         if index == 31:  # 右脚趾
             cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
         if index == 32:  # 左脚趾
-            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 0), 2)
+            cv.circle(image, (landmark_x, landmark_y), 5, (0, 255, 255), 2)
 
     # cv.line（） 函数
     # 第一个参数 img：要划的线所在的图像;
@@ -223,7 +223,7 @@ def draw_landmarks(image, landmarks, visibility_th=0.5):
         if landmark_point[12][0] > visibility_th and landmark_point[24][
             0] > visibility_th:
             cv.line(image, landmark_point[12][1], landmark_point[24][1],
-                    (0, 255, 0), 2)
+                    (0, 255, 255), 2)
         if landmark_point[23][0] > visibility_th and landmark_point[24][
             0] > visibility_th:
             cv.line(image, landmark_point[23][1], landmark_point[24][1],
@@ -252,20 +252,19 @@ def draw_landmarks(image, landmarks, visibility_th=0.5):
             if landmark_point[24][0] > visibility_th and landmark_point[26][
                 0] > visibility_th:
                 cv.line(image, landmark_point[24][1], landmark_point[26][1],
-                        (0, 255, 0), 2)
+                        (0, 255, 255), 2)
             if landmark_point[26][0] > visibility_th and landmark_point[28][
                 0] > visibility_th:
                 cv.line(image, landmark_point[26][1], landmark_point[28][1],
-                        (0, 255, 0), 2)
+                        (0, 255, 255), 2)
             if landmark_point[28][0] > visibility_th and landmark_point[30][
                 0] > visibility_th:
                 cv.line(image, landmark_point[28][1], landmark_point[30][1],
-                        (0, 255, 0), 2)
+                        (0, 255, 255), 2)
             if landmark_point[30][0] > visibility_th and landmark_point[32][
                 0] > visibility_th:
                 cv.line(image, landmark_point[30][1], landmark_point[32][1],
-                        (0, 255, 0), 2)
-
+                        (0, 255, 255), 2)
     return image, landmark_point
 
 
