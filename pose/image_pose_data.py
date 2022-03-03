@@ -15,7 +15,6 @@ from multiprocessing import Process, Queue
 
 
 def get_picture_angle(file, index):
-
     # 参数分析v #################################################################
     # 识别模型参数
     args = get_pose_model_args()
@@ -24,7 +23,6 @@ def get_picture_angle(file, index):
     min_tracking_confidence = args.min_tracking_confidence
     use_brect = args.use_brect
     # 存储路径参数
-    # 获取参数
     args = get_global_args()
     picture_store_path = args.picture_store_path
 
@@ -55,31 +53,16 @@ def get_picture_angle(file, index):
         # 绘画
         debug_image, landmark_points = draw_landmarks(debug_image, results.pose_landmarks)
         debug_image = draw_bounding_rect(use_brect, debug_image, brect)
-
         # 计算角度
         angle_json = calc_angle(landmark_points)
-
-    # 屏幕反射 #############################################################
-    # while True:
-    #     cv.imshow('MediaPipe Pose Demo', debug_image)
-    #     # 按键处理（ESC：结束） #################################################
-    #     cv.imwrite('../resultVideo/res.png', debug_image)
-    #     key = cv.waitKey(1)
-    #     if key == 27:  # ESC
-    #         break
 
     # 获取文件路径的后缀
     suffix = os.path.splitext(file)[-1]
     # 角标准图片识别结果保存
     cv.imwrite(picture_store_path + str(index) + suffix, debug_image)
-
-    data = {'data': angle_json}
-    # loadJson = LoadData('angle')
-    # print("长度: ", len(data))
-    # print("data: ", data)
-    # loadJson.save_data(data)
-
     cv.destroyAllWindows()
+    # 封装数据
+    data = {'data': angle_json}
 
     return data, debug_image
 

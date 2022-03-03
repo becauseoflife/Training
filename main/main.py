@@ -1,10 +1,5 @@
-import argparse
 from tkinter import Tk
-
-from args import get_global_args
 from gui import Training_GUI
-from pose import image_pose_indentify
-from utils import getUrlFile
 
 import globalVariable.global_variable as global_dict
 

@@ -1,6 +1,5 @@
 import cv2 as cv
 import numpy as np
-import mediapipe as mp
 
 
 def calc_bounding_rect(image, landmarks):
@@ -201,19 +200,19 @@ def draw_landmarks(image, landmarks, visibility_th=0.5):
         if landmark_point[16][0] > visibility_th and landmark_point[18][
             0] > visibility_th:
             cv.line(image, landmark_point[16][1], landmark_point[18][1],
-                    (0, 255, 0), 2)
+                    (0, 255, 255), 2)
         if landmark_point[18][0] > visibility_th and landmark_point[20][
             0] > visibility_th:
             cv.line(image, landmark_point[18][1], landmark_point[20][1],
-                    (0, 255, 0), 2)
+                    (0, 255, 255), 2)
         if landmark_point[20][0] > visibility_th and landmark_point[22][
             0] > visibility_th:
             cv.line(image, landmark_point[20][1], landmark_point[22][1],
-                    (0, 255, 0), 2)
+                    (0, 255, 255), 2)
         if landmark_point[22][0] > visibility_th and landmark_point[16][
             0] > visibility_th:
             cv.line(image, landmark_point[22][1], landmark_point[16][1],
-                    (0, 255, 0), 2)
+                    (0, 255, 255), 2)
 
         # 身体
         if landmark_point[11][0] > visibility_th and landmark_point[23][
@@ -227,7 +226,7 @@ def draw_landmarks(image, landmarks, visibility_th=0.5):
         if landmark_point[23][0] > visibility_th and landmark_point[24][
             0] > visibility_th:
             cv.line(image, landmark_point[23][1], landmark_point[24][1],
-                    (0, 255, 0), 2)
+                    (255, 255, 0), 2)
 
         if len(landmark_point) > 25:
             # 右足

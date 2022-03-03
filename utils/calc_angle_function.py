@@ -82,11 +82,9 @@ def angle(point1, point2, public_point):
     # atan2 返回给定的 X 及 Y 坐标值的反正切值。
     angle1 = math.atan2(y1, x1)
     angle1 = int(angle1 * 180 / math.pi)
-    # print("角度1 ： ", angle1)
 
     angle2 = math.atan2(y2, x2)
     angle2 = int(angle2 * 180 / math.pi)
-    # print("角度2 ： ", angle1)
 
     if angle1 * angle2 >= 0:
         included_angle = abs(angle1 - angle2)
@@ -96,3 +94,5 @@ def angle(point1, point2, public_point):
             included_angle = 360 - included_angle
 
     return included_angle
+
+

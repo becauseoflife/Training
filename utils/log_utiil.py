@@ -39,7 +39,6 @@ def get_log_data(type, angle_data, index):
     if right_knee_angle == -1:
         right_knee_angle = "未识别"
     knee = str(left_knee_angle) + '/' + str(right_knee_angle)
-
     # 日志数组
     log = [now_time, type, index, armpit, elbow, hip, knee]
     return log

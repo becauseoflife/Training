@@ -26,7 +26,7 @@ class Training_GUI():
     # 设置窗口
     def set_init_window(self):
         # 窗口名
-        self.init_window_name.title("康复训练系统v1.0.0")
+        self.init_window_name.title("运动康复训练系统 V1.0.0")
         # 290 160为窗口大小，+10 +10 定义窗口弹出时的默认展示位置
         # self.init_window_name.geometry('320x160+10+10')
         size = '%dx%d+%d+%d' % (self.init_window_width, self.init_window_height-100, 0, 0)
@@ -64,9 +64,9 @@ class Training_GUI():
         self.left_frame_top = Frame(self.left_frame, bg='blue', width=800, height=650)
         self.left_frame_top.pack(fill='both', side=tkinter.TOP, in_=self.left_frame, expand=True)
         # 图像显示提示文字
-        self.picture_text_label = Label(self.left_frame_top, relief='raised', text="标准姿势", width=110, height=3, font=('黑体', 12), bg='Honeydew')
+        self.picture_text_label = Label(self.left_frame_top, relief='solid', text="标准姿势", width=100, height=3, font=('黑体', 12, 'bold'), bg='Honeydew')
         self.picture_text_label.pack(fill='both', side=tkinter.TOP, in_=self.left_frame_top)
-        self.picture_show_label = Label(self.left_frame_top, relief='groove', width=110, height=40, bg='WhiteSmoke', font=('黑体', 12))
+        self.picture_show_label = Label(self.left_frame_top, relief='solid', width=100, height=40, bg='WhiteSmoke', font=('黑体', 12, 'bold'))
         self.picture_show_label.pack(fill='both', side=tkinter.BOTTOM, in_=self.left_frame_top, expand=True)
 
         # 左边下部分的框架 =====================================================================
@@ -74,12 +74,16 @@ class Training_GUI():
         self.left_frame_bottom.pack(fill='both', side=tkinter.BOTTOM, in_=self.left_frame)
         # 日志区域
 
-        self.log_text_label = Label(self.left_frame_bottom, relief='raised', text="日志输出", width=110, height=3, font=('黑体', 12), bg='Honeydew')
+        self.log_text_label = Label(self.left_frame_bottom, relief='solid', text="日志输出", width=100, height=3, font=('黑体', 12, 'bold'), bg='Honeydew')
         self.log_text_label.pack(fill='both', side=tkinter.TOP, in_=self.left_frame_bottom)
         # self.log_output_text = ttk.Treeview(self.left_frame_bottom, relief='groove', width=120, height=30, bg='WhiteSmoke', font=('宋体', 10))
 
         scrollbar_y = Scrollbar(self.left_frame_bottom, orient=VERTICAL)
         scrollbar_y.pack(side=tkinter.RIGHT, fill=tkinter.Y)
+
+        style = ttk.Style()
+        style.configure('mytreeview.Headings', background='gray', font=('Arial Bold', 10))
+
         # 日志表格
         self.log_output_table = ttk.Treeview(self.left_frame_bottom, show='headings', yscrollcommand=scrollbar_y.set)
         self.log_output_table.pack(fill='both', side=tkinter.BOTTOM, in_=self.left_frame_bottom, expand=True)
@@ -111,26 +115,26 @@ class Training_GUI():
         self.right_frame = Frame(self.init_window_name, bg='yellow', width=50, height=frame_height)
         self.right_frame.pack(fill='both', side=tkinter.RIGHT, in_=self.init_window_name)
         # 顶部文字
-        self.diplay_text_label = Label(self.right_frame, relief='raised', text="实时姿势识别", width=frame_width, height=3, font=('黑体', 12), bg='Honeydew')
+        self.diplay_text_label = Label(self.right_frame, relief='solid', text="实时姿势识别", width=frame_width, height=3, font=('黑体', 12, 'bold'), bg='Honeydew')
         self.diplay_text_label.pack(fill='both', side=tkinter.TOP, in_=self.right_frame)
         # 顶部
         self.right_frame_top = Frame(self.right_frame, bg='black', width=50, height=200)
         self.right_frame_top.pack(in_=self.right_frame)
-        self.left_hand_show_label = Label(self.right_frame_top, relief='groove', text='左上半部分身体提示区', width=64, height=9, font=('黑体', 12), bg='Snow', fg='red')
+        self.left_hand_show_label = Label(self.right_frame_top, relief='solid', text='左上半部分身体提示区', width=57, height=9, font=('黑体', 12, 'bold'), bg='Snow', fg='red')
         self.left_hand_show_label.pack(anchor='nw', side=tkinter.LEFT, fill='x', expand='yes', in_=self.right_frame_top)
-        self.right_hand_show_label = Label(self.right_frame_top, relief='groove', text='右上半部分身体提示区', width=70, height=9, font=('黑体', 12), bg='Snow', fg='red')
+        self.right_hand_show_label = Label(self.right_frame_top, relief='solid', text='右上半部分身体提示区', width=60, height=9, font=('黑体', 12, 'bold'), bg='Snow', fg='red')
         self.right_hand_show_label.pack(anchor='ne', side=tkinter.RIGHT, fill='x', expand='yes', in_=self.right_frame_top)
         # 中部
         self.right_frame_mid = Frame(self.right_frame, bg='orange', width=1100, height=38)
         self.right_frame_mid.pack(fill='both', after=self.right_frame_top, side=tkinter.TOP, anchor='center', expand='yes', in_=self.right_frame)
-        self.camera_dipaly_label = Label(self.right_frame_mid, relief='groove', text="点击开始", width=1100, height=38, font=('黑体', 12), bg='WhiteSmoke')
+        self.camera_dipaly_label = Label(self.right_frame_mid, relief='solid', text="点击开始", width=1100, height=38, font=('黑体', 12, 'bold'), bg='WhiteSmoke')
         self.camera_dipaly_label.pack(fill='both', anchor='center', expand='yes', in_=self.right_frame_mid)
         # 底部
         self.right_frame_end = Frame(self.right_frame, relief='groove', width=50, height=200)
         self.right_frame_end.pack(fill='both', side=tkinter.BOTTOM, after=self.right_frame_mid, in_=self.right_frame)
-        self.left_foot_show_label = Label(self.right_frame_end, relief='groove', text='左下部分身体提示区', width=64, height=9, font=('黑体', 12), bg='Snow', fg='red')
+        self.left_foot_show_label = Label(self.right_frame_end, relief='solid', text='左下部分身体提示区', width=57, height=9, font=('黑体', 12, 'bold'), bg='Snow', fg='red')
         self.left_foot_show_label.pack(anchor='nw', side=tkinter.LEFT, fill='x', expand='yes', in_=self.right_frame_end)
-        self.right_foot_show_label = Label(self.right_frame_end, relief='groove', text='右下部分身体提示区', width=70, height=9, font=('黑体', 12), bg='Snow', fg='red')
+        self.right_foot_show_label = Label(self.right_frame_end, relief='solid', text='右下部分身体提示区', width=60, height=9, font=('黑体', 12, 'bold'), bg='Snow', fg='red')
         self.right_foot_show_label.pack(anchor='ne', side=tkinter.RIGHT, fill='x', expand='yes', in_=self.right_frame_end)
 
         # 绑定事件
@@ -233,7 +237,6 @@ class Training_GUI():
         # 大小自适应
         w_box = self.camera_dipaly_label.winfo_width()
         h_box = self.camera_dipaly_label.winfo_height()
-        # print("1. ", w_box, " x ", h_box)
         re_image = resize(w_box, h_box, current_image)
 
         imageTK = ImageTk.PhotoImage(image=re_image)

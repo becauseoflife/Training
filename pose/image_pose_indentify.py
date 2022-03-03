@@ -1,17 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import copy
-import datetime
-import math
 import os
-
 import cv2 as cv
-import numpy as np
 import mediapipe as mp
-from PIL import Image
 
 from args import get_pose_model_args, get_global_args
-from utils import CvFpsCalc, LoadData, getUrlFile
+from utils import CvFpsCalc, getUrlFile
 from utils import interval
 from pose.image_pose_data import get_picture_angle
 from utils import calc_bounding_rect, draw_landmarks, draw_bounding_rect
@@ -49,7 +44,7 @@ def image_pose_indentify():
     # trainingGUI.update_image("../standard/image/test3.png")
     # 没有标准图片
     if len(array_image) == 0:
-        trainingGUI.set_text("项目路径 standard/image/ 下没有标准图片")
+        trainingGUI.set_text("项目的路径 " + picture_path + " 下没有标准姿势图片")
         return
 
     # 照相机准备 ###############################################################
@@ -60,7 +55,6 @@ def image_pose_indentify():
     cap = cv.VideoCapture(cap_device)
     cap.set(cv.CAP_PROP_FRAME_WIDTH, cap_width)
     cap.set(cv.CAP_PROP_FRAME_HEIGHT, cap_height)
-
     # 设置全局变量
     global_dict.set_value('cap', cap)
 
@@ -71,21 +65,9 @@ def image_pose_indentify():
         min_detection_confidence=min_detection_confidence,
         min_tracking_confidence=min_tracking_confidence,
     )
-
     # FPS测量模块 ########################################################
     cvFpsCalc = CvFpsCalc(buffer_len=10)
 
-    # 读取出来的图像数据
-    # json_util = LoadData('angle')
-    # json_data = json_util.load_data()
-
-    # 保存视频指定编码器
-    # fourcc = cv.VideoWriter_fourcc(*'XVID')
-    # video_writer = None
-    # flag = True
-
-    # print("要处理的突变数组长度: ", len(array_image))
-    # print("参数: ", array_image)
     # 依次执行每张图片
     index = 0
     update_flag = 0
@@ -94,13 +76,12 @@ def image_pose_indentify():
 
     while index < imgArrLen:
         display_fps = cvFpsCalc.get()
-
         # 相机抓取 #####################################################
         # 参数ret 为 True 或者 False,代表有没有读取到图片
         # 第二个参数 image 表示截取到一帧的图片
         ret, image = cap.read()
         if not ret:
-            # trainingGUI.set_text("没有默认的摄像设备使用···")
+            trainingGUI.set_text("没有默认的摄像设备使用···")
             return
         # 镜像显示
         image = cv.flip(image, 1)
@@ -171,35 +152,12 @@ def image_pose_indentify():
             trainingGUI.update_right_hand_text(result_up_r)
             trainingGUI.update_left_foot_text(result_down_l)
             trainingGUI.update_right_foot_text(result_down_r)
-
+            # fps
             cv.putText(debug_image, "FPS:" + str(display_fps), (10, 30),
                        cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0), 2, cv.LINE_AA)
 
             # 显示相机识别的图片到界面上
             trainingGUI.update_camera_image(debug_image)
-
-        # 位置参数说明： 图片 要添加的文字 文字添加到图片上的位置 字体的类型 字体大小 字体颜色 字体粗细
-        # debug_image = cv2ImageAddText(debug_image, result_str_l, 20, 40, (0, 255, 255), 20, cv.LINE_AA)
-        # debug_image = cv2ImageAddText(debug_image, result_str_r, 1000, 40, (0, 255, 255), 20, cv.LINE_AA)
-
-        # 第一个参数是要保存的文件的路径
-        # fourcc 指定编码器
-        # fps 要保存的视频的帧率     正浮点数或正整数
-        # frameSize 要保存的文件的画面尺寸 (width, height)
-        # isColor 指示是黑白画面还是彩色的画面
-        # if flag is True:
-        #     video_writer = cv.VideoWriter(filename='../resultVideo/test.avi', fourcc=fourcc, fps=5,
-        #                                   frameSize=(debug_image.shape[1], debug_image.shape[0]), isColor=True)
-        #     flag = False
-        # video_writer.write(debug_image)
-
-        # 按键处理（ESC：结束） #################################################
-        # key = cv.waitKey(1)
-        # if key == 27:  # ESC
-        #     break
-
-        # 屏幕反射 #############################################################
-        # cv.imshow('MediaPipe Pose Demo', debug_image)
 
     # 重置画面
     trainingGUI.identify_compass()
@@ -211,9 +169,7 @@ def image_pose_indentify():
 
 
 # 比较两个姿势角度数据是否相等
-def compareAngle(standard_angle, angle_json, mistake=20, hip_mistake=20):
-    # 判断是否识别
-    flag = True
+def compareAngle(standard_angle, angle_json, mistake=20):
     # 提示文字
     tipIncText_l = []
     tipIncText_r = []
@@ -288,10 +244,10 @@ def compareAngle(standard_angle, angle_json, mistake=20, hip_mistake=20):
     standard = standard_angle['hip']['left_hip_angle']
     angle = angle_json['hip']['left_hip_angle']
     if angle != -1:
-        if standard != -1 and angle not in interval(standard, hip_mistake):
-            if angle < standard - hip_mistake:
+        if standard != -1 and angle not in interval(standard, mistake):
+            if angle < standard - mistake:
                 tipDecText_l.append("请增大左侧腰部和左大腿之间的幅度！")
-            if angle > standard + hip_mistake:
+            if angle > standard + mistake:
                 tipDecText_l.append("请减小左侧腰部和左大腿之间的幅度！")
     elif angle == -1 and standard != -1:
         tipDecText_l.append("未识别左腰部")
@@ -299,10 +255,10 @@ def compareAngle(standard_angle, angle_json, mistake=20, hip_mistake=20):
     standard = standard_angle['hip']['right_hip_angle']
     angle = angle_json['hip']['right_hip_angle']
     if angle != -1:
-        if standard != -1 and angle not in interval(standard, hip_mistake):
-            if angle < standard - hip_mistake:
+        if standard != -1 and angle not in interval(standard, mistake):
+            if angle < standard - mistake:
                 tipDecText_r.append("请增大右侧腰部和右大腿之间的幅度！")
-            if angle > standard + hip_mistake:
+            if angle > standard + mistake:
                 tipDecText_r.append("请减小右侧腰部和右大腿之间的幅度！")
     elif angle == -1 and standard != -1:
         tipDecText_r.append("未识别右腰部")
